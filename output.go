@@ -100,8 +100,6 @@ func writeGoFiles(cfg *Config, prog *cc.Prog) {
 		// Not sure where these blank lines come from.
 		buf = bytes.Replace(buf, []byte("{\n\n"), []byte("{\n"), -1)
 
-		buf = fixCopyright(gofile, cfiles[gofile], buf)
-
 		for i, d := range cfg.diffs {
 			if bytes.Contains(buf, d.before) {
 				buf = bytes.Replace(buf, d.before, d.after, -1)
@@ -113,83 +111,4 @@ func writeGoFiles(cfg *Config, prog *cc.Prog) {
 			log.Print(err)
 		}
 	}
-}
-
-var copyrightPrefixes = []string{
-	"// Copyright",
-	"// Inferno",
-	"// Derived",
-	"// cmd/",
-	"/*\n * The authors of this software",
-	"/*\nhttp://code.google.com",
-}
-
-// fixCopyright hoists the copyright notice to the top of the file.
-// The package statement has been printed above it.
-// If fixCopyright cannot find a notice, it calls copyCopyright to copy it
-// from the original C file.
-func fixCopyright(gofile, cfile string, buf []byte) []byte {
-	i := -1
-	for _, prefix := range copyrightPrefixes {
-		if j := bytes.Index(buf, []byte(prefix)); j >= 0 && (i < 0 || j < i) {
-			i = j
-		}
-	}
-	if i < 0 {
-		//log.Printf("%s: cannot find copyright notice", gofile)
-		return copyCopyright(gofile, cfile, buf)
-	}
-
-	k := bytes.Index(buf[i:], []byte("\n\n"))
-	if k < 0 {
-		log.Printf("%s: cannot find end of copyright notice", gofile)
-		return buf
-	}
-	k += i
-	for l := k - 1; l >= 0; l-- {
-		if buf[l] == '\n' {
-			if buf[l+1] != '/' || buf[l+2] != '/' {
-				log.Printf("%s: copyright notice not followed by blank line", gofile)
-				return buf
-			}
-			break
-		}
-	}
-
-	var out []byte
-	out = append(out, buf[i:k+2]...)
-	out = append(out, buf[:i]...)
-	out = append(out, buf[k+1:]...) // k+1 to include an extra \n
-	return out
-}
-
-// copyCopyright inserts the copyright from cfile at the beginning of buf
-// and returns the result.
-func copyCopyright(gofile, cfile string, buf []byte) []byte {
-	if strings.HasPrefix(cfile, "internal/") {
-		return buf
-	}
-	data, err := ioutil.ReadFile(cfile)
-	if err != nil {
-		log.Printf("%s: reading copyright from C: %v", gofile, err)
-		return buf
-	}
-
-	i := -1
-	for _, prefix := range copyrightPrefixes {
-		if j := bytes.Index(data, []byte(prefix)); j >= 0 && (i < 0 || j < i) {
-			i = j
-		}
-	}
-	if i < 0 {
-		log.Printf("%s: cannot find copyright notice in C file %s", gofile, cfile)
-		return buf
-	}
-
-	j := bytes.Index(data[i:], []byte("\n\n"))
-	if j < 0 {
-		log.Printf("%s: cannot find end of copyright notice in C file %s", gofile, cfile)
-	}
-	j += i
-	return append(data[i:j+2], buf...)
 }
