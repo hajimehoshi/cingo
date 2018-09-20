@@ -7,7 +7,7 @@ package main
 import (
 	"fmt"
 
-	"rsc.io/c2go/cc"
+	"github.com/hajimehoshi/c2go/cc"
 )
 
 var numRewrite int

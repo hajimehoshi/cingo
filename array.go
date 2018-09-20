@@ -4,7 +4,7 @@
 
 package main
 
-import "rsc.io/c2go/cc"
+import "github.com/hajimehoshi/c2go/cc"
 
 // fixArrays rewrites uses of the untyped "Array" container defined in cmd/gc
 // to use native Go slices.

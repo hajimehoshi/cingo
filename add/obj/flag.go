@@ -7,6 +7,8 @@ package obj
 import (
 	"flag"
 	"fmt"
+	"os"
+	"strconv"
 )
 
 func Flagfn2(string, string, func(string, string)) { panic("flag") }

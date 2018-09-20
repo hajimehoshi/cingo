@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"rsc.io/c2go/cc"
+	"github.com/hajimehoshi/c2go/cc"
 )
 
 func tryPrintf(curfn *cc.Decl, x *cc.Expr, name string, fmtpos int, newName string) bool {
@@ -482,7 +482,7 @@ func fixPrintFormat(curfn *cc.Decl, fx *cc.Expr, args []*cc.Expr) []*cc.Expr {
 func fixFormatter(fn *cc.Decl) {
 	// Find va_arg assignment.
 	var arg *cc.Expr
-	var argType *cc.Type
+	//var argType *cc.Type
 	var ps []*cc.Expr
 	cc.Preorder(fn.Body, func(x cc.Syntax) {
 		switch x := x.(type) {
@@ -511,7 +511,7 @@ func fixFormatter(fn *cc.Decl) {
 				fprintf(fn.Span, "multiple va_arg in formatter")
 			}
 			arg = expr.Left
-			argType = expr.Right.Type
+			//argType = expr.Right.Type
 			stmt.Op = cc.Empty
 		}
 	})
