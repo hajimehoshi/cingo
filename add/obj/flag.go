@@ -9,7 +9,7 @@ import (
 	"fmt"
 )
 
-func Flagfn2(string, string, func(string, string)) {panic("flag")}
+func Flagfn2(string, string, func(string, string)) { panic("flag") }
 
 func Flagcount(name, usage string, val *int) {
 	flag.Var((*count)(val), name, usage)

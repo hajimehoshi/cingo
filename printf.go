@@ -339,7 +339,7 @@ func fixPrintFormat(curfn *cc.Decl, fx *cc.Expr, args []*cc.Expr) []*cc.Expr {
 					Op:   cc.Call,
 					Left: &cc.Expr{Op: cc.Name, Text: "Dconv" + suffix},
 					List: []*cc.Expr{
-						&cc.Expr{Op: cc.Name, Text: "p"},
+						{Op: cc.Name, Text: "p"},
 						flag,
 						arg,
 					},

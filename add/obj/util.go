@@ -26,12 +26,12 @@ func Cputime() float64 {
 }
 
 type Biobuf struct {
-	unget [2]int
+	unget    [2]int
 	numUnget int
-	f         *os.File
-	r         *bufio.Reader
-	w         *bufio.Writer
-	linelen   int
+	f        *os.File
+	r        *bufio.Reader
+	w        *bufio.Writer
+	linelen  int
 }
 
 func Bopenw(name string) (*Biobuf, error) {

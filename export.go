@@ -87,7 +87,7 @@ func renameDecl(cfg *Config, d *cc.Decl) {
 			}
 		}
 	}
-	
+
 	if d.Type != nil && d.Type.Kind == cc.Func && d.Body != nil {
 		for _, s := range d.Body.Block {
 			if s.Op == cc.StmtDecl && s.Decl.Storage&cc.Static != 0 {

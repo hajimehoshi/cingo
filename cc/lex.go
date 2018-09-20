@@ -179,10 +179,10 @@ func (lx *lexer) pushInclude(includeLine string) {
 }
 
 var stdMap = map[string]string{
-	"u.h":      hdr_u_h,
-	"libc.h":   hdr_libc_h,
-	"stdarg.h": "",
-	"signal.h": "",
+	"u.h":        hdr_u_h,
+	"libc.h":     hdr_libc_h,
+	"stdarg.h":   "",
+	"signal.h":   "",
 	"sys/stat.h": hdr_sys_stat_h,
 }
 

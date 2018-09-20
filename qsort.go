@@ -28,11 +28,11 @@ func fixQsort(prog *cc.Prog, x *cc.Expr) {
 	if typ == nil {
 		return
 	}
-	
+
 	x.Left.Text = "sort.Sort"
 	x.Left.XDecl = nil
 	x.List = []*cc.Expr{
-		&cc.Expr{
+		{
 			Op:   cc.Call,
 			Left: &cc.Expr{Op: cc.Name, Text: cmp},
 			List: []*cc.Expr{

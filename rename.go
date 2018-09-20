@@ -29,10 +29,10 @@ var goKeyword = map[string]bool{
 	"var":         true,
 
 	// not keywords but still need renaming
-	"fmt": true,
-	"path": true,
-	"rune": true,
-	"true": true,
+	"fmt":   true,
+	"path":  true,
+	"rune":  true,
+	"true":  true,
 	"false": true,
 }
 
@@ -145,7 +145,7 @@ func renameDecls(cfg *Config, prog *cc.Prog) {
 			}
 			d.Name += "_" + file
 		}
-		
+
 		if d.Type.Kind == cc.Func {
 			if d.Body != nil {
 				for _, s := range d.Body.Block {

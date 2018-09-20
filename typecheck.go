@@ -734,7 +734,7 @@ func fixGoTypesExpr(fn *cc.Decl, x *cc.Expr, targ *cc.Type) (ret *cc.Type) {
 		if x.Op == cc.PostInc && isSliceOrString(left) {
 			old := copyExpr(x.Left)
 			x.Op = cc.Eq
-			x.Right = &cc.Expr{Op: ExprSlice, List: []*cc.Expr{old, &cc.Expr{Op: cc.Number, Text: "1"}, nil}}
+			x.Right = &cc.Expr{Op: ExprSlice, List: []*cc.Expr{old, {Op: cc.Number, Text: "1"}, nil}}
 		}
 
 		return nil
@@ -1072,7 +1072,7 @@ func fixSpecialCall(fn *cc.Decl, x *cc.Expr, targ *cc.Type) bool {
 		if count == nil {
 			x.Left.Text = "new"
 			x.Left.XDecl = nil
-			x.List = []*cc.Expr{&cc.Expr{Op: ExprType, Type: typ}}
+			x.List = []*cc.Expr{{Op: ExprType, Type: typ}}
 			x.XType = &cc.Type{Kind: cc.Ptr, Base: typ}
 			if typ.String() == "Prog" {
 				isGC := strings.Contains(x.Span.Start.File, "cmd/gc")
@@ -1090,7 +1090,7 @@ func fixSpecialCall(fn *cc.Decl, x *cc.Expr, targ *cc.Type) bool {
 			x.Left.XDecl = nil
 			x.XType = &cc.Type{Kind: Slice, Base: typ}
 			x.List = []*cc.Expr{
-				&cc.Expr{Op: ExprType, Type: x.XType},
+				{Op: ExprType, Type: x.XType},
 				count,
 			}
 		}
