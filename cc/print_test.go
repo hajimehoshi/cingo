@@ -2,9 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package cc
+package cc_test
 
-import "testing"
+import (
+	"testing"
+
+	. "github.com/hajimehoshi/c2go/cc"
+)
 
 var exprTests = []string{
 	"x",
