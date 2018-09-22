@@ -179,23 +179,23 @@ type Init struct {
 // each Syntax encountered during the traversal. In case of cross-linked input,
 // the traversal never visits a given Syntax more than once.
 func Walk(x Syntax, before, after func(Syntax)) {
-	seen := map[Syntax]bool{
-		nil:           true,
-		(*Decl)(nil):  true,
-		(*Init)(nil):  true,
-		(*Type)(nil):  true,
-		(*Expr)(nil):  true,
-		(*Stmt)(nil):  true,
-		(*Label)(nil): true,
+	seen := map[Syntax]struct{}{
+		nil:           struct{}{},
+		(*Decl)(nil):  struct{}{},
+		(*Init)(nil):  struct{}{},
+		(*Type)(nil):  struct{}{},
+		(*Expr)(nil):  struct{}{},
+		(*Stmt)(nil):  struct{}{},
+		(*Label)(nil): struct{}{},
 	}
 	walk(x, before, after, seen)
 }
 
-func walk(x Syntax, before, after func(Syntax), seen map[Syntax]bool) {
-	if seen[x] {
+func walk(x Syntax, before, after func(Syntax), seen map[Syntax]struct{}) {
+	if _, ok := seen[x]; ok {
 		return
 	}
-	seen[x] = true
+	seen[x] = struct{}{}
 	before(x)
 	switch x := x.(type) {
 	default:
