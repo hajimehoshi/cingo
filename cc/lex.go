@@ -123,7 +123,6 @@ func (lx *lexer) pushInclude(includeLine string) {
 	i++
 
 	file := s[1:i]
-	origFile := file
 
 	file, data, err := lx.findInclude(file, s[0] == '<')
 	if err != nil {
@@ -146,18 +145,6 @@ func (lx *lexer) pushInclude(includeLine string) {
 	if hdr == nil {
 		hdr = new(Header)
 		lx.includeSeen[file] = hdr
-	}
-
-	if extraMap[origFile] != "" {
-		str := extraMap[origFile] + "\n"
-		lx.pushed = append(lx.pushed, lx.lexInput)
-		lx.lexInput = lexInput{
-			input:      str,
-			wholeInput: str,
-			file:       "internal/" + origFile,
-			lineno:     1,
-			declSave:   hdr,
-		}
 	}
 
 	if data == nil {
@@ -187,10 +174,6 @@ var stdMap = map[string]string{
 	"stdio.h":  hdr_stdio_h,
 	"stdlib.h": hdr_stdlib_h,
 	"string.h": "",
-}
-
-var extraMap = map[string]string{
-	"go.h": hdr_extra_go_h,
 }
 
 var includes []string

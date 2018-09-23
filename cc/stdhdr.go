@@ -152,21 +152,6 @@ extern	int	noted(int);
 
 `
 
-const hdr_extra_go_h = `
-extern Node *N;
-extern Sym *S;
-extern Type *T;
-extern Label *L;
-//extern Case *C;
-extern Prog *P;
-
-enum
-{
-	BITS = 5,
-	NVAR = BITS*4*8,
-};
-`
-
 const hdr_sys_stat_h = `
 struct stat {
 	int st_mode;
