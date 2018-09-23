@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 func fixQsort(prog *cc.Prog, x *cc.Expr) {

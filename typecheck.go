@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 // rewriteTypes rewrites C types appearing in the program to equivalent Go types.

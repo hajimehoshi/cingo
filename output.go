@@ -15,7 +15,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 var dst = flag.String("dst", "/tmp/c2go", "GOPATH root of destination")

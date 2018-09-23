@@ -23,7 +23,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 var (

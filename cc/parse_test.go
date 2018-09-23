@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	. "github.com/hajimehoshi/c2go/cc"
+	. "github.com/hajimehoshi/cingo/cc"
 )
 
 func prettyPrint(in string) {

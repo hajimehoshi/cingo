@@ -11,7 +11,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 type PrintSpecial int

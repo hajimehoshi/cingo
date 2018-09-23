@@ -188,7 +188,7 @@ func Walk(x Syntax, before, after func(Syntax)) {
 		(*Stmt)(nil):  struct{}{},
 		(*Label)(nil): struct{}{},
 	}
-	walk(x, func (s Syntax, indent int) { before(s) }, func (s Syntax, indent int) { after(s) }, seen, 0)
+	walk(x, func(s Syntax, indent int) { before(s) }, func(s Syntax, indent int) { after(s) }, seen, 0)
 }
 
 func WalkIndent(x Syntax, before, after func(Syntax, int)) {

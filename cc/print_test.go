@@ -7,7 +7,7 @@ package cc_test
 import (
 	"testing"
 
-	. "github.com/hajimehoshi/c2go/cc"
+	. "github.com/hajimehoshi/cingo/cc"
 )
 
 var exprTests = []string{

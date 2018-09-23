@@ -14,7 +14,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 type Config struct {

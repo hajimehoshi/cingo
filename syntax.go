@@ -7,7 +7,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/hajimehoshi/c2go/cc"
+	"github.com/hajimehoshi/cingo/cc"
 )
 
 var numRewrite int
