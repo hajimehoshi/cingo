@@ -147,8 +147,6 @@ func (lx *lexer) pushInclude(includeLine string) {
 	if hdr == nil {
 		hdr = new(Header)
 		lx.includeSeen[file] = hdr
-	} else {
-		fmt.Printf("%s: warning nested %s\n", lx.span(), includeLine)
 	}
 
 	if extraMap[origFile] != "" {
@@ -184,6 +182,12 @@ var stdMap = map[string]string{
 	"stdarg.h":   "",
 	"signal.h":   "",
 	"sys/stat.h": hdr_sys_stat_h,
+
+	"stddef.h": hdr_stddef_h,
+	"stdint.h": "",
+	"stdio.h":  hdr_stdio_h,
+	"stdlib.h": hdr_stdlib_h,
+	"string.h": "",
 }
 
 var extraMap = map[string]string{

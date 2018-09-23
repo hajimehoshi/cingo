@@ -1,6 +1,6 @@
 package cc
 
-var hdr_u_h = `
+const hdr_u_h = `
 typedef signed char schar;
 typedef unsigned char uchar;
 typedef unsigned short ushort;
@@ -35,7 +35,7 @@ void *nil;
 typedef struct va_list *va_list;
 `
 
-var hdr_libc_h = `
+const hdr_libc_h = `
 #include <fmt.h>
 
 extern char *argv0;
@@ -152,7 +152,7 @@ extern	int	noted(int);
 
 `
 
-var hdr_extra_go_h = `
+const hdr_extra_go_h = `
 extern Node *N;
 extern Sym *S;
 extern Type *T;
@@ -167,11 +167,25 @@ enum
 };
 `
 
-var hdr_sys_stat_h = `
+const hdr_sys_stat_h = `
 struct stat {
 	int st_mode;
 };
 
 int lstat(char*, struct stat*);
 int S_ISREG(int);
+`
+
+const hdr_stddef_h = `
+typedef unsigned long size_t;
+`
+
+const hdr_stdio_h = `
+int printf(const char* format, ...);
+`
+
+const hdr_stdlib_h = `
+#include <stddef.h>
+
+void* calloc(size_t nmemb, size_t size);
 `
