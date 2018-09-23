@@ -29,6 +29,15 @@ var skips = map[string]struct{}{
 	"00050": {}, // Initializing a struct in a struct
 	"00053": {}, // Defining a struct in a block
 	"00061": {}, // #define
+	"00062": {}, // #ifdef
+	"00063": {}, // #define
+	"00064": {}, // #define
+	"00065": {}, // #define
+	"00066": {}, // #define
+	"00067": {}, // #if
+	"00068": {}, // #if
+	"00069": {}, // #if
+	"00070": {}, // #ifndef
 }
 
 type Case struct {
