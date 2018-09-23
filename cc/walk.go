@@ -13,26 +13,26 @@ import (
 // the traversal never visits a given Syntax more than once.
 func Walk(x Syntax, before, after func(Syntax)) {
 	seen := map[Syntax]struct{}{
-		nil:           struct{}{},
-		(*Decl)(nil):  struct{}{},
-		(*Init)(nil):  struct{}{},
-		(*Type)(nil):  struct{}{},
-		(*Expr)(nil):  struct{}{},
-		(*Stmt)(nil):  struct{}{},
-		(*Label)(nil): struct{}{},
+		nil:           {},
+		(*Decl)(nil):  {},
+		(*Init)(nil):  {},
+		(*Type)(nil):  {},
+		(*Expr)(nil):  {},
+		(*Stmt)(nil):  {},
+		(*Label)(nil): {},
 	}
 	walk(x, func(s Syntax, indent int) { before(s) }, func(s Syntax, indent int) { after(s) }, seen, 0)
 }
 
 func WalkIndent(x Syntax, before, after func(Syntax, int)) {
 	seen := map[Syntax]struct{}{
-		nil:           struct{}{},
-		(*Decl)(nil):  struct{}{},
-		(*Init)(nil):  struct{}{},
-		(*Type)(nil):  struct{}{},
-		(*Expr)(nil):  struct{}{},
-		(*Stmt)(nil):  struct{}{},
-		(*Label)(nil): struct{}{},
+		nil:           {},
+		(*Decl)(nil):  {},
+		(*Init)(nil):  {},
+		(*Type)(nil):  {},
+		(*Expr)(nil):  {},
+		(*Stmt)(nil):  {},
+		(*Label)(nil): {},
 	}
 	walk(x, before, after, seen, 0)
 }

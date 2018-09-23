@@ -25,10 +25,10 @@ var (
 )
 
 var skips = map[string]struct{}{
-	"00044": struct{}{}, // Defining a struct in a block
-	"00050": struct{}{}, // Initializing a struct in a struct
-	"00053": struct{}{}, // Defining a struct in a block
-	"00061": struct{}{}, // #define
+	"00044": {}, // Defining a struct in a block
+	"00050": {}, // Initializing a struct in a struct
+	"00053": {}, // Defining a struct in a block
+	"00061": {}, // #define
 }
 
 type Case struct {
@@ -61,7 +61,7 @@ func run() error {
 		if err := os.Chdir(*testsuite); err != nil {
 			return err
 		}
-		
+
 	}
 
 	if err := os.Chdir(filepath.Join("tests", "single-exec")); err != nil {
@@ -101,7 +101,7 @@ func run() error {
 	})
 
 	names := []string{}
-	for name, _ := range cases {
+	for name := range cases {
 		names = append(names, name)
 	}
 	sort.Strings(names)
@@ -111,7 +111,7 @@ func run() error {
 			continue
 		}
 		c := cases[name]
-		prog, err := cc.Read(name + ".c", bytes.NewReader(c.In))
+		prog, err := cc.Read(name+".c", bytes.NewReader(c.In))
 		if err != nil {
 			fmt.Println(err)
 			break
