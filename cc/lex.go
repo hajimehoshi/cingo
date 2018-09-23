@@ -669,40 +669,28 @@ func (lx *lexer) enum(x Syntax) {
 func (lx *lexer) order(prog *Prog) {
 	lx.enumSeen = make(map[interface{}]bool)
 	lx.enum(prog)
-	sort.Sort(byStart(lx.pre))
+	sort.Slice(lx.pre, func (i, j int) bool {
+		pi := lx.pre[i].GetSpan()
+		pj := lx.pre[j].GetSpan()
+		// Order by start byte, leftmost first,
+		// and break ties by choosing outer before inner.
+		if pi.Start.Byte != pj.Start.Byte {
+			return pi.Start.Byte < pj.Start.Byte
+		}
+		return pi.End.Byte > pj.End.Byte
+	})
 	lx.post = make([]Syntax, len(lx.pre))
 	copy(lx.post, lx.pre)
-	sort.Sort(byEnd(lx.post))
-}
-
-type byStart []Syntax
-
-func (x byStart) Len() int      { return len(x) }
-func (x byStart) Swap(i, j int) { x[i], x[j] = x[j], x[i] }
-func (x byStart) Less(i, j int) bool {
-	pi := x[i].GetSpan()
-	pj := x[j].GetSpan()
-	// Order by start byte, leftmost first,
-	// and break ties by choosing outer before inner.
-	if pi.Start.Byte != pj.Start.Byte {
-		return pi.Start.Byte < pj.Start.Byte
-	}
-	return pi.End.Byte > pj.End.Byte
-}
-
-type byEnd []Syntax
-
-func (x byEnd) Len() int      { return len(x) }
-func (x byEnd) Swap(i, j int) { x[i], x[j] = x[j], x[i] }
-func (x byEnd) Less(i, j int) bool {
-	pi := x[i].GetSpan()
-	pj := x[j].GetSpan()
-	// Order by end byte, leftmost first,
-	// and break ties by choosing inner before outer.
-	if pi.End.Byte != pj.End.Byte {
-		return pi.End.Byte < pj.End.Byte
-	}
-	return pi.Start.Byte > pj.Start.Byte
+	sort.Slice(lx.post, func(i, j int) bool {
+		pi := lx.post[i].GetSpan()
+		pj := lx.post[j].GetSpan()
+		// Order by end byte, leftmost first,
+		// and break ties by choosing inner before outer.
+		if pi.End.Byte != pj.End.Byte {
+			return pi.End.Byte < pj.End.Byte
+		}
+		return pi.Start.Byte > pj.Start.Byte
+	})
 }
 
 // assignComments attaches comments to nearby syntax.
