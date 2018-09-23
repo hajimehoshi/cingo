@@ -60,10 +60,9 @@ type lexer struct {
 	start int
 	byte  int
 	lexInput
-	pushed      []lexInput
-	forcePos    Pos
-	c2goComment bool // inside /*c2go ... */ comment
-	comments    []Comment
+	pushed   []lexInput
+	forcePos Pos
+	comments []Comment
 
 	// comment assignment
 	pre      []Syntax
@@ -415,11 +414,6 @@ Restart:
 	case '/':
 		switch in[1] {
 		case '*':
-			if strings.HasPrefix(in, "/*c2go") {
-				lx.skip(6)
-				lx.c2goComment = true
-				goto Restart
-			}
 			i := 2
 			for ; ; i++ {
 				if i+2 <= len(in) && in[i] == '*' && in[i+1] == '/' {
@@ -448,11 +442,6 @@ Restart:
 		fallthrough
 
 	case '~', '*', '(', ')', '[', ']', '{', '}', '?', ':', ';', ',', '%', '^', '!', '=', '<', '>', '+', '-', '&', '|':
-		if lx.c2goComment && in[0] == '*' && in[1] == '/' {
-			lx.c2goComment = false
-			lx.skip(2)
-			goto Restart
-		}
 		if c == '-' && in[1] == '>' {
 			lx.token(2)
 			return tokArrow
