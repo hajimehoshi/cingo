@@ -3,4 +3,4 @@
 // license that can be found in the LICENSE file.
 
 // Package cc implements parsing, type checking, and printing of C programs.
-package cc // import "rsc.io/c2go/cc"
+package cc
